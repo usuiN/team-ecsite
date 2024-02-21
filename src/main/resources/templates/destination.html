@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+
+<link href="/css/reset.css" th:href="@{/css/reset.css}" rel="stylesheet" />
+<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+
+<title>DRAGON WARMTH</title>
+</head>
+<body>
+
+<header th:insert="fragments/page_header::pageHeader"></header>
+
+<main>
+
+  <div class="container">
+  <h2>宛先登録</h2>
+
+  <table id="register" class="user">
+    <tr>
+    <th>宛先氏名</th>
+    <td>
+      <input type="text" name="familyName" th:value="${user.familyName}" placeholder="宛先 姓" maxlength="16" />
+      <input type="text" name="firstName" th:value="${user.firstName}" placeholder="宛先 名" maxlength="16" />
+      <ul id="familyNameErrors" class="hidden"></ul>
+      <ul id="firstNameErrors" class="hidden"></ul>
+    </td>
+    </tr>
+    <tr>
+    <th>住所</th>
+    <td>
+      <input type="text" name="address" placeholder="住所" maxlength="50" />
+      <ul id="addressErrors" class="hidden"></ul>
+    </td>
+    </tr>
+    <tr>
+    <th>電話番号<br /><span class="note">（半角数字 10～13文字）</span></th>
+    <td>
+      <input type="text" name="telNumber" placeholder="0311112222" maxlength="13" />
+      <ul id="telNumberErrors" class="hidden"></ul>
+    </td>
+    </tr>
+    <tr>
+    <th class="buttonArea"></th>
+    <th class="buttonArea">
+      <button id="registerBtn">登録</button>
+      <button id="resetBtn">クリア</button>
+    </th>
+    </tr>
+  </table>
+
+  </div>
+
+</main>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+/*
+ * 画面表示時 (onLoad) に動作する処理群
+ */
+document.addEventListener("DOMContentLoaded", event => {
+  // 登録ボタン押下時のイベントリスナー
+  document.getElementById("registerBtn").addEventListener("click", () => {
+    const errorInfo = checkAllErrors();
+    if (errorInfo.hasError == false) {  // 各入力項目にエラーがなかった場合
+      registerDestination();
+    }
+  });
+
+  // クリアボタン押下時のイベントリスナー
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    const elements = document.querySelectorAll("table input");
+    for (element of elements) {
+      element.value = "";
+    }
+  });
+});
+
+/**
+ * 入力項目について、エラーチェックをおこなう。
+ * 対象のエラーチェック関数を次々に呼び出すテンプレート関数
+ * @param なし
+ */
+function checkAllErrors() {
+
+  const hasError =  checkFamilyNameError() | checkFirstNameError() | checkAddressError() | checkTelNumberError();
+
+  return { hasError: hasError };
+}
+
+/**
+ * 姓の入力項目について、エラーチェックをおこなう。
+ * @param なし
+ */
+function checkFamilyNameError() {
+  const target = document.querySelector("table#register input[name=familyName]").value;
+  let messages = [];
+
+  if (validator.isEmpty(target)) {
+    messages.push(`「姓」が${validateConstants.ERR_MSG.EMPTY}`);
+  }
+  if (validator.overMax(target, validateConstants.FAMILY_NAME_MAX)) {
+    messages.push(`「姓」の${validateConstants.ERR_MSG.OVER_MAX}`);
+  }
+
+  // エラーメッセージのList(ul)を取得し、エラー有無によって表示/非表示を切り替える
+  const ul = document.getElementById("familyNameErrors");
+  if (messages.length > 0) {
+    createErrorList(ul, messages);
+    ul.className = "visible";
+    return true;  // エラーがあった場合
+  } else {
+    ul.className = "hidden";
+  }
+
+  return false;  // エラーがなかった場合
+}
+
+/**
+ * 名の入力項目について、エラーチェックをおこなう。
+ * @param なし
+ */
+function checkFirstNameError() {
+  const target = document.querySelector("table#register input[name=firstName]").value;
+  let messages = [];
+
+  if (validator.isEmpty(target)) {
+    messages.push(`「名」が${validateConstants.ERR_MSG.EMPTY}`);
+  }
+  if (validator.overMax(target, validateConstants.First_NAME_MAX)) {
+    messages.push(`「名」の${validateConstants.ERR_MSG.OVER_MAX}`);
+  }
+
+  // エラーメッセージのList(ul)を取得し、エラー有無によって表示/非表示を切り替える
+  const ul = document.getElementById("firstNameErrors");
+  if (messages.length > 0) {
+    createErrorList(ul, messages);
+    ul.className = "visible";
+    return true;  // エラーがあった場合
+  } else {
+    ul.className = "hidden";
+  }
+
+  return false;  // エラーがなかった場合
+}
+
+/**
+ * 宛先住所の入力項目について、エラーチェックをおこなう。
+ * @param なし
+ */
+function checkAddressError() {
+  const target = document.querySelector("table#register input[name=address]").value;
+  let messages = [];
+
+  if (validator.isEmpty(target)) {
+    messages.push(`「住所」が${validateConstants.ERR_MSG.EMPTY}`);
+  }
+  if (validator.overMax(target, validateConstants.ADDRESS_MAX)) {
+    messages.push(`「住所」の${validateConstants.ERR_MSG.OVER_MAX}`);
+  }
+
+  // エラーメッセージのList(ul)を取得し、エラー有無によって表示/非表示を切り替える
+  const ul = document.getElementById("addressErrors");
+  if (messages.length > 0) {
+    createErrorList(ul, messages);
+    ul.className = "visible";
+    return true;  // エラーがあった場合
+  } else {
+    ul.className = "hidden";
+  }
+
+  return false;  // エラーがなかった場合
+}
+
+/**
+ * 宛先電話番号の入力項目について、エラーチェックをおこなう。
+ * @param なし
+ */
+function checkTelNumberError() {
+  const target = document.querySelector("table#register input[name=telNumber]").value;
+  let messages = [];
+
+  if (validator.isEmpty(target)) {
+    messages.push(`「電話番号」が${validateConstants.ERR_MSG.EMPTY}`);
+  }
+  if (!validator.isHalfNumeric(target)) {
+    messages.push(`「電話番号」に${validateConstants.ERR_MSG.NOT_ONLY_NUMERIC}`);
+  }
+  if (validator.overMax(target, validateConstants.TEL_NUMBER_MAX)) {
+    messages.push(`「電話番号」の${validateConstants.ERR_MSG.OVER_MAX}`);
+  }
+  if (validator.underMin(target, validateConstants.TEL_NUMBER_MIN)) {
+    messages.push(`「電話番号」の${validateConstants.ERR_MSG.UNDER_MIN}`);
+  }
+
+  // エラーメッセージのList(ul)を取得し、エラー有無によって表示/非表示を切り替える
+  const ul = document.getElementById("telNumberErrors");
+  if (messages.length > 0) {
+    createErrorList(ul, messages);
+    ul.className = "visible";
+    return true;  // エラーがあった場合
+  } else {
+    ul.className = "hidden";
+  }
+
+  return false;  // エラーがなかった場合
+}
+
+/**
+ * ユーザー情報をDBテーブルに登録する。
+ * @param なし
+ */
+function registerDestination() {
+  // JavaにPOST送信するオブジェクトを取得・設定する
+  const postObj = {
+    "familyName": document.querySelector("table#register input[name=familyName]").value,
+    "firstName": document.querySelector("table#register input[name=firstName]").value,
+    "address": document.querySelector("table#register input[name=address]").value,
+    "telNumber": document.querySelector("table#register input[name=telNumber]").value
+  };
+
+  /*
+   * fetch API を使用し、Javaと非同期通信(POST)を行う
+   * SUCCESS時(then)： 決済処理を呼び出す
+   *　ERROR時(catch)： エラー情報を console に出力する
+   */
+  fetch("/dragon/destination/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postObj),
+  })
+  .then(response =>  response.text())
+  .then(result => {
+    alert("宛先情報を登録しました。");
+
+     // 宛先ID(result)情報を渡し、決済処理に進む
+     settlement(result);
+  })
+  .catch(error => {
+    console.error("Error: ", error);
+  });
+}
+
+/**
+ * 決済処理をおこなう
+ * @param destinationId 宛先情報ID
+ */
+function settlement(destinationId) {
+
+  // JavaにPOST送信するオブジェクトを取得・設定する
+  const postObj = { "destinationId": destinationId };
+
+  /*
+   * fetch API を使用し、Javaと非同期通信(POST)を行う
+   * SUCCESS時(then)： 決済処理を呼び出す
+   *　ERROR時(catch)： エラー情報を console に出力する
+   */
+  fetch("/dragon/settlement/complete", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postObj),
+  })
+  .then(response =>  response.text())
+  .then(result => {
+    // 購入履歴ページへ遷移する
+    location.replace('/dragon/history/');
+  })
+  .catch(error => {
+    console.error("Error: ", error);
+  });
+}
+/*]]>*/
+</script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+header {
+	width: 100%;
+	min-width: 650px;
+	height: 80px;
+}
+
+div.headerTop {
+	display: flex;
+	width: 100%;
+	background: #bb0000;
+	color: #ffffff;
+}
+
+div.headerSub {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-left:auto;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: normal;
+	display: inline-block;
+	width: 23%;
+	min-width: 250px;
+	margin: 5px 10px;
+}
+
+h1.logo {
+	font-family: 'Monotype Corsiva';
+}
+h1.logo a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+}
+
+h2 {
+	margin-top: 10px;
+	font-size: 1.5em;
+	font-weight: normal;
+	text-align: center;
+}
+
+form {
+	margin-top: 5px;
+}
+
+select, form input {
+	margin-right: 30px;
+}
+
+nav {
+	display: flex;
+	flex-direction: row-reverse;
+	width: 100%;
+	min-width: 390px;
+}
+
+.menu {
+	display: flex;
+	margin-top: 2px;
+	list-style: none;
+	overflow: hidden;
+	background:#ffffff;
+	margin-left:auto;
+	margin-right: 10px;
+}
+
+.menu li {
+	width: 100px;
+	text-align: center;
+	background: #008000;	
+	border:1px solid #00ff00;
+	height: 25px;
+	line-height: 25px;
+	margin-right: 10px;
+	padding: 3px;
+	border-radius: 10px;
+}
+
+.menu li a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.hidden {
+	display: none;
+}
+
+span.welcomeMsg {
+	margin-top: 15px;
+	margin-right: 15px;
+}
+
+span.signup {
+	margin-top: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+span.signup a {
+	text-decoration: none;
+	text-decoration-line: underline;
+	color: #ffffff;
+	font-size: 0.8em;
+}
+span.signup a:hover {
+	text-decoration: none;
+	text-decoration-line: underline;
+	color: #ffff00;
+	font-size: 0.8em;
+}
+
+div.loginArea {
+	padding-top: 6px;
+	margin-right: 10px;
+}
+
+input[name="userName"], input[name="password"] {
+	width: 90px;
+}
+
+main {
+	display: block;
+	width: 100%;
+	border-top: 1px solid #008000;
+	background: linear-gradient(#008000, #ffffff) fixed;
+	padding-bottom: 20px;
+}
+
+div.container {
+	border-radius: 20px;
+	width: 70%;
+	min-width: 600px;
+	background: #ffffff;
+	margin: 20px auto;
+	padding: 5px;
+	text-align: center;
+}
+
+img.itemImage {
+	width: 70px;
+	height: 70px;
+}
+
+table {
+	width: 680px;
+	min-width: 680px;
+	margin: 10px auto;
+}
+
+table.history, table.user {
+	width: 780px;
+	min-width: 780px;
+	margin: 10px auto;
+}
+table.history td.address {
+	width: 260px;
+}
+
+th {
+	padding: 5px;
+	height: 20px;
+	vertical-align: middle;
+	background: #c0c0c0;
+	border: 1px solid #777777;
+	font-weight: normal;
+}
+
+.top th {
+	border-bottom: 5px groove #777777;
+}
+
+.user th, .myPage th {
+	width: 160px;
+	height: 45px;
+}
+
+td {
+	vertical-align: middle;
+	padding: 3px;
+	border: 1px solid #c0c0c0;
+}
+.user td, .myPage td {
+	text-align: left;
+	padding-left: 10px;
+}
+
+td.image {
+	width: 72px;
+}
+
+.componentTd {
+	text-align: center;
+}
+
+.number {
+	text-align: right;
+}
+
+.count {
+	width: 50px;
+}
+
+input[type=email] {
+	width: 350px;
+}
+input[name=address] {
+	width: 350px;
+}
+
+.note {
+	font-size: 0.8em;
+}
+
+.buttonArea, .totalArea {
+	background: #ffffff;
+	border-right: 0px solid #ffffff;
+	border-left: 0px solid #ffffff;
+	border-bottom: 0px solid #ffffff;
+	text-align: right;
+}
+
+table#register ul {
+	color: red;
+	list-style:none;
+}
+
+.cart td.totalArea {
+	border-top: 5px groove #777777;
+	border-bottom: 1px solid #c0c0c0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+.destination td, .history td {
+	height: 35px;
+}
+
+.buttonArea button {
+	width: 100px;
+	margin-left: 15px;
+}
+
+.info {
+	color: #008000;
+}
+
+.error {
+	color: #ff0000;
+}
+
+div.error {
+	margin: 10px 5px;
+}
+
+caption {
+	text-align: left;
+	font-size: 1.2em;
+	padding-left: 10px;
+}
+
+img.itemImageDetail {
+	width: 220px;
+	height: 220px;
+}
+
+div.buttonArea {
+	width: 680px;
+	margin: 10px auto;
+}
+div.cart div.buttonArea {
+	margin-top: 20px;
+	display: inline-block;
+}
+div.history div.buttonArea {
+	width: 780px;
+	margin-top: 20px;
+}
+
+#settlementButtonArea {
+	display: flex;
+}
+#settlementButtonArea form {
+	margin-left: auto;
+}
+#settlementButtonArea button {
+	width: 75px;
+	height: 25px;
+}
+
+div.cart form {
+	display: inline-block;
+}
+
+#description {
+	vertical-align: top;
+}
+
+.noData, .completed {
+	margin: 20px;
+	height: 300px;
+}
+.noData p, .completed p {
+	padding: 20px;
+}
