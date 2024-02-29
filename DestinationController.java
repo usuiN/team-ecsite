@@ -81,6 +81,7 @@ public class DestinationController {
 
 		MstDestination destination = new MstDestination(f);
 		destination.setUserId(loginSession.getUserId());
+
 		int count = destinationMapper.insert(destination);
 
 		Integer destinationId = count > 0 ? destination.getId() : 0;
