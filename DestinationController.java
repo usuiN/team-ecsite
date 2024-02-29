@@ -29,13 +29,13 @@ import jp.co.internous.dragon.model.session.LoginSession;
 public class DestinationController {
 
 	@Autowired
-	MstDestinationMapper destinationMapper;
+	private MstDestinationMapper destinationMapper;
 
 	@Autowired
 	private  LoginSession loginSession;
 
 	@Autowired
-	MstUserMapper userMapper;
+	private MstUserMapper userMapper;
 
 	private Gson gson = new Gson();
 

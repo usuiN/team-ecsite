@@ -24,11 +24,12 @@ import jp.co.internous.dragon.model.session.LoginSession;
 @RequestMapping("/dragon/auth")
 public class AuthController {
 
-	@Autowired
-	MstUserMapper userMapper;
 
 	@Autowired
 	private  LoginSession loginSession;
+
+	@Autowired
+	private MstUserMapper userMapper;
 
 	@Autowired
 	private TblCartMapper cartMapper;
