@@ -29,10 +29,10 @@ import jp.co.internous.dragon.model.session.LoginSession;
 public class DestinationController {
 
 	@Autowired
-	private MstDestinationMapper destinationMapper;
+	private  LoginSession loginSession;
 
 	@Autowired
-	private  LoginSession loginSession;
+	private MstDestinationMapper destinationMapper;
 
 	@Autowired
 	private MstUserMapper userMapper;
